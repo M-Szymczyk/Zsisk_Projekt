@@ -20,6 +20,8 @@ public interface IGraph {
      */
     void removeEdge(Edge edge) throws GraphException;
 
+    int getGraphDimension();
+
     /**
      * Method print graph in terminal
      */
@@ -30,4 +32,6 @@ public interface IGraph {
     Collection<Edge> getEdgeCollection();
 
     Collection<Edge> getNeighbours(int nodeId);
+
+    int getEdgeWeight(int beginNode, int endNode);
 }

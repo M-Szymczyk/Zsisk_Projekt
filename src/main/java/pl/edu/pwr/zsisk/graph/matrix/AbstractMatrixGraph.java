@@ -70,4 +70,9 @@ public abstract class AbstractMatrixGraph implements IGraph {
     public int getGraphDimension() {
         return graphDimension;
     }
+
+    @Override
+    public int getEdgeWeight(int beginNode, int endNode) {
+        return matrix[beginNode][endNode];
+    }
 }

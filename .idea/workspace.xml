@@ -4,16 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8e37454-7761-4bf7-886f-53b50e70b08a" name="Changes" comment="init project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/Edge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/GraphException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/IGraph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AbstractMatrixGraph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AdjacencyMatrix.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/DirectedAdjacencyMatrix.java" afterDir="false" />
+    <list default="true" id="d8e37454-7761-4bf7-886f-53b50e70b08a" name="Changes" comment="add graph representation and some instance to test application">
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/BasicNeighborSolutionLocator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/BestNeighborSolutionLocator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/IterationsStopCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/LockNodeTabuList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/Path.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/StaticTabuList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/StopCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/TabuList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/tabu_search/TabuSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/IGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/IGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AbstractMatrixGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AbstractMatrixGraph.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +29,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
         <option value="package-info" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -98,7 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666188331444</updated>
       <workItem from="1666188332800" duration="944000" />
-      <workItem from="1666348096509" duration="15425000" />
+      <workItem from="1666348096509" duration="33672000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <created>1666189154458</created>
@@ -107,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666189154458</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add graph representation and some instance to test application">
+      <created>1666439813073</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666439813073</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,8 +138,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="init project" />
-    <option name="LAST_COMMIT_MESSAGE" value="init project" />
+    <MESSAGE value="add graph representation and some instance to test application" />
+    <option name="LAST_COMMIT_MESSAGE" value="add graph representation and some instance to test application" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

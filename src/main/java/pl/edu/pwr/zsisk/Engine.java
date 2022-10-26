@@ -69,6 +69,6 @@ public class Engine {
         SimulatedAnnealingSolution sol = sim.solve();
 
         long finish = System.nanoTime();
-        displayResult(start, sol.getCost((AdjacencyMatrix) graph), finish);
+        displayResult(start, sol.cost, finish);
     }
 }

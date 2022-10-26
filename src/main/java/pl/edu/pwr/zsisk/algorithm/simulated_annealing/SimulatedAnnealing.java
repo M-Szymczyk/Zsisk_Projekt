@@ -10,17 +10,16 @@ import java.util.Random;
 
 public class SimulatedAnnealing {
 
-    double currentTemperature;
-    int iterationsAtSameTemperature;
     AdjacencyMatrix matrix;
     Cooling cooling;
     StopCondition stopCondition;
 
+    SimulatedAnnealingState state;
+
     public SimulatedAnnealing(AdjacencyMatrix matrix, double initialTemperature, int iterationsAtSameTemperature) {
-        this.currentTemperature = initialTemperature;
-        this.iterationsAtSameTemperature = iterationsAtSameTemperature;
+        this.state = new SimulatedAnnealingState(initialTemperature, iterationsAtSameTemperature);
         this.matrix = matrix;
-        this.cooling = new GeometricalCooling(0.9999);
+        this.cooling = new GeometricalCooling(0.999);
         this.stopCondition = new StopCondition(1.0, 10_000);
 
     }
@@ -29,32 +28,33 @@ public class SimulatedAnnealing {
     public SimulatedAnnealingSolution solve() {
         StopReason reason = StopReason.NONE;
 
+        
         SimulatedAnnealingSolution currentSolution, bestSolution;
         currentSolution = this.getRandomInitialSolution();
         bestSolution = this.getRandomInitialSolution();
 
-        for (int iter = 0; iter < this.iterationsAtSameTemperature; iter++) {
+        for (int iter = 0; iter < this.state.iterationsPerStep; iter++) {
 
-            while ((reason = this.stopCondition.conditionMet(currentTemperature, 10_000)) == StopReason.NONE) {
+            while ((reason = this.stopCondition.conditionMet(this.state.temperature, 10_000)) == StopReason.NONE) {
 
                 List<Integer> possibleNeighbourSolutionPath = this.permutateTwoRandomVertices(currentSolution.path);
-                SimulatedAnnealingSolution possibleNeighbourSolution = new SimulatedAnnealingSolution(possibleNeighbourSolutionPath);
+                SimulatedAnnealingSolution possibleNeighbourSolution = new SimulatedAnnealingSolution(possibleNeighbourSolutionPath, this.matrix);
 
                 double probability = this.getProbabilityOfGoingToNextState(
-                        currentSolution.getCost(this.matrix),
-                        possibleNeighbourSolution.getCost(this.matrix),
-                        this.currentTemperature);
+                        currentSolution.cost,
+                        possibleNeighbourSolution.cost,
+                        this.state.temperature);
 
                 if (this.evaluateProbability(probability)) {
                     currentSolution = possibleNeighbourSolution;
                 }
 
-                if (currentSolution.getCost(this.matrix) < bestSolution.getCost(this.matrix)) {
+                if (currentSolution.cost < bestSolution.cost) {
                     bestSolution = currentSolution;
                 }
 
 
-                this.currentTemperature = this.cooling.changeTemperature(this.currentTemperature);
+                this.state.temperature = this.cooling.changeTemperature(this.state.temperature);
             }
         }
 
@@ -77,7 +77,7 @@ public class SimulatedAnnealing {
             initialPath = this.permutateTwoRandomVertices(initialPath);
         }
 
-        return new SimulatedAnnealingSolution(initialPath);
+        return new SimulatedAnnealingSolution(initialPath, this.matrix);
     }
 
     private boolean evaluateProbability(double probability) {

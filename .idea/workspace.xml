@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e37454-7761-4bf7-886f-53b50e70b08a" name="Changes" comment="add graph representation and some instance to test application">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingSolution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/StopCondition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/StopReason.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/cooling/Cooling.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/cooling/GeometricalCooling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AdjacencyMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AdjacencyMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,11 +144,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/graph/matrix/AbstractMatrixGraph.java</url>
           <line>15</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

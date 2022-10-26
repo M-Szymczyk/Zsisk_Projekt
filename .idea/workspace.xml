@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e37454-7761-4bf7-886f-53b50e70b08a" name="Changes" comment="add graph representation and some instance to test application">
+      <change afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingThreadRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingSolution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/edu/pwr/zsisk/algorithm/simulated_annealing/SimulatedAnnealingState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +22,8 @@
         <option value="package-info" />
         <option value="JUnit4 Test Class" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>

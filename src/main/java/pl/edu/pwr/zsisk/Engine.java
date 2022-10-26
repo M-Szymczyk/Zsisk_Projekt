@@ -17,12 +17,12 @@ public class Engine {
     private static IGraph graph;
 
     public static void main(String[] args) {
-        graph = new DirectedAdjacencyMatrix("br17.atsp");
+        graph = new DirectedAdjacencyMatrix("rbg443.atsp");
 
         performSimulatedAnnealingTest(100, 10);
 
-        performTabuSearchTest(100, 100000);
-        performThreadTabuSearchTest(10, 100, 100000);
+//        performTabuSearchTest(100, 100000);
+//        performThreadTabuSearchTest(10, 100, 100000);
 
     }
 
@@ -64,11 +64,18 @@ public class Engine {
     }
 
     static void performSimulatedAnnealingTest(int initialTemperature, int iterationsAtSameTemperature) {
-        long start = System.nanoTime();
-        SimulatedAnnealing sim = new SimulatedAnnealing((AdjacencyMatrix) graph, initialTemperature, iterationsAtSameTemperature);
-        SimulatedAnnealingSolution sol = sim.solve();
 
+        SimulatedAnnealing sim = new SimulatedAnnealing((AdjacencyMatrix) graph, initialTemperature, iterationsAtSameTemperature);
+
+        long start = System.nanoTime();
+        SimulatedAnnealingSolution sol = sim.solve();
         long finish = System.nanoTime();
         displayResult(start, sol.cost, finish);
+
+        start = System.nanoTime();
+        sim = new SimulatedAnnealing((AdjacencyMatrix) graph, initialTemperature, iterationsAtSameTemperature * 16);
+        SimulatedAnnealingSolution sol2 = sim.solveWithThreads(16);
+        finish = System.nanoTime();
+        displayResult(start, sol2.cost, finish);
     }
 }

@@ -1,69 +1,78 @@
 package pl.edu.pwr.zsisk.algorithm.simulated_annealing;
 
-import pl.edu.pwr.zsisk.algorithm.simulated_annealing.cooling.Cooling;
 import pl.edu.pwr.zsisk.algorithm.simulated_annealing.cooling.GeometricalCooling;
 import pl.edu.pwr.zsisk.graph.matrix.AdjacencyMatrix;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class SimulatedAnnealing {
 
-    AdjacencyMatrix matrix;
-    Cooling cooling;
-    StopCondition stopCondition;
 
     SimulatedAnnealingState state;
 
     public SimulatedAnnealing(AdjacencyMatrix matrix, double initialTemperature, int iterationsAtSameTemperature) {
-        this.state = new SimulatedAnnealingState(initialTemperature, iterationsAtSameTemperature);
-        this.matrix = matrix;
-        this.cooling = new GeometricalCooling(0.999);
-        this.stopCondition = new StopCondition(1.0, 10_000);
-
+        this.state = new SimulatedAnnealingState(
+                initialTemperature,
+                iterationsAtSameTemperature,
+                new GeometricalCooling(0.999),
+                new StopCondition(1.0, 10_000),
+                matrix
+        );
     }
 
+    public SimulatedAnnealingSolution solveWithThreads(int numOfThreads) {
+        this.state.setCurrentSolution(SimulatedAnnealing.getRandomInitialSolution(this.state.matrix));
+
+        List<Thread> threads = new ArrayList<>(numOfThreads);
+        for (int t = 0; t < numOfThreads; t++) {
+            Thread executeThread = new Thread(new SimulatedAnnealingThreadRunnable(this.state));
+            threads.add(executeThread);
+        }
+        threads.forEach(t -> t.start());
+
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return this.state.getBestSolution();
+    }
 
     public SimulatedAnnealingSolution solve() {
         StopReason reason = StopReason.NONE;
 
-        
-        SimulatedAnnealingSolution currentSolution, bestSolution;
-        currentSolution = this.getRandomInitialSolution();
-        bestSolution = this.getRandomInitialSolution();
+        this.state.setCurrentSolution(SimulatedAnnealing.getRandomInitialSolution(this.state.matrix));
 
-        for (int iter = 0; iter < this.state.iterationsPerStep; iter++) {
+        while ((reason = this.state.stopCondition.conditionMet(this.state.temperature, 10_000)) == StopReason.NONE) {
+            for (int iter = 0; iter < this.state.iterationsPerStep; iter++) {
+                SimulatedAnnealingSolution currentSolution = this.state.getCurrentSolution();
+                List<Integer> possibleNeighbourSolutionPath = SimulatedAnnealing.permutateTwoRandomVertices(currentSolution.path);
+                SimulatedAnnealingSolution possibleNeighbourSolution = new SimulatedAnnealingSolution(possibleNeighbourSolutionPath, this.state.matrix);
 
-            while ((reason = this.stopCondition.conditionMet(this.state.temperature, 10_000)) == StopReason.NONE) {
-
-                List<Integer> possibleNeighbourSolutionPath = this.permutateTwoRandomVertices(currentSolution.path);
-                SimulatedAnnealingSolution possibleNeighbourSolution = new SimulatedAnnealingSolution(possibleNeighbourSolutionPath, this.matrix);
-
-                double probability = this.getProbabilityOfGoingToNextState(
+                double probability = SimulatedAnnealing.getProbabilityOfGoingToNextState(
                         currentSolution.cost,
                         possibleNeighbourSolution.cost,
                         this.state.temperature);
 
-                if (this.evaluateProbability(probability)) {
-                    currentSolution = possibleNeighbourSolution;
+                if (SimulatedAnnealing.evaluateProbability(probability)) {
+                    this.state.setCurrentSolution(possibleNeighbourSolution);
                 }
 
-                if (currentSolution.cost < bestSolution.cost) {
-                    bestSolution = currentSolution;
-                }
-
-
-                this.state.temperature = this.cooling.changeTemperature(this.state.temperature);
             }
+            this.state.temperature = this.state.cooling.changeTemperature(this.state.temperature);
         }
 
-        //System.out.println(reason);
-        return bestSolution;
+        return this.state.getBestSolution();
     }
 
-    private SimulatedAnnealingSolution getRandomInitialSolution() {
-        int graphDimension = this.matrix.getGraphDimension();
+    static SimulatedAnnealingSolution getRandomInitialSolution(AdjacencyMatrix matrix) {
+        int graphDimension = matrix.getGraphDimension();
 
         // create list with [0,1,2,3,4,....]
         List<Integer> initialPath = new LinkedList<>();
@@ -74,23 +83,23 @@ public class SimulatedAnnealing {
         // permutate the list x times
         int numberOfPermutations = new Random().nextInt(100, 200);
         for (int perm = 0; perm < numberOfPermutations; perm++) {
-            initialPath = this.permutateTwoRandomVertices(initialPath);
+            initialPath = SimulatedAnnealing.permutateTwoRandomVertices(initialPath);
         }
 
-        return new SimulatedAnnealingSolution(initialPath, this.matrix);
+        return new SimulatedAnnealingSolution(initialPath, matrix);
     }
 
-    private boolean evaluateProbability(double probability) {
+    static boolean evaluateProbability(double probability) {
         return new Random().nextDouble(0, 1) < probability;
     }
 
-    private List<Integer> permutateTwoRandomVertices(List<Integer> path) {
+    static List<Integer> permutateTwoRandomVertices(List<Integer> path) {
         int firstVertexToSwap = new Random().nextInt(path.size());
         int secondVertexToSwap = new Random().nextInt(path.size());
-        return this.permutateTwoVertices(path, firstVertexToSwap, secondVertexToSwap);
+        return SimulatedAnnealing.permutateTwoVertices(path, firstVertexToSwap, secondVertexToSwap);
     }
 
-    private List<Integer> permutateTwoVertices(List<Integer> path, int idx1, int idx2) {
+    static List<Integer> permutateTwoVertices(List<Integer> path, int idx1, int idx2) {
 
         List<Integer> permutatedPath = new LinkedList<>(path);
         Integer valueOfElementOnIdx1 = permutatedPath.get(idx1);
@@ -102,7 +111,7 @@ public class SimulatedAnnealing {
         return permutatedPath;
     }
 
-    private double getProbabilityOfGoingToNextState(int currentGoalFunctionValue, int newGoalFunctionValue, double temperature) {
+    static double getProbabilityOfGoingToNextState(int currentGoalFunctionValue, int newGoalFunctionValue, double temperature) {
         if (newGoalFunctionValue <= currentGoalFunctionValue) {
             return 1.0;
         } else {

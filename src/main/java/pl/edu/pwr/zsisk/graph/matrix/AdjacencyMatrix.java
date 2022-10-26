@@ -59,4 +59,16 @@ public class AdjacencyMatrix extends AbstractMatrixGraph {
         }
         return edges;
     }
+
+    public int getPathCost(List<Integer> path) {
+        int cost = 0;
+        int pathSize = path.size();
+
+        for (int i = 0; i < pathSize; i++) {
+            int startVertexId = path.get(i);
+            int endVertexId = path.get((i + 1) % pathSize);
+            cost += this.matrix[startVertexId][endVertexId];
+        }
+        return cost;
+    }
 }

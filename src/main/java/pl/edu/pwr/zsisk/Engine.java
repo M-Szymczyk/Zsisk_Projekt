@@ -1,7 +1,10 @@
 package pl.edu.pwr.zsisk;
 
+import pl.edu.pwr.zsisk.algorithm.simulated_annealing.SimulatedAnnealing;
+import pl.edu.pwr.zsisk.algorithm.simulated_annealing.SimulatedAnnealingSolution;
 import pl.edu.pwr.zsisk.algorithm.tabu_search.*;
 import pl.edu.pwr.zsisk.graph.IGraph;
+import pl.edu.pwr.zsisk.graph.matrix.AdjacencyMatrix;
 import pl.edu.pwr.zsisk.graph.matrix.DirectedAdjacencyMatrix;
 
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ public class Engine {
 
     public static void main(String[] args) {
         graph = new DirectedAdjacencyMatrix("br17.atsp");
+
+        performSimulatedAnnealingTest(100, 10);
 
         performTabuSearchTest(100, 100000);
         performThreadTabuSearchTest(10, 100, 100000);
@@ -56,5 +61,14 @@ public class Engine {
 
         long finish = System.nanoTime();
         displayResult(start, bestResult, finish);
+    }
+
+    static void performSimulatedAnnealingTest(int initialTemperature, int iterationsAtSameTemperature) {
+        long start = System.nanoTime();
+        SimulatedAnnealing sim = new SimulatedAnnealing((AdjacencyMatrix) graph, initialTemperature, iterationsAtSameTemperature);
+        SimulatedAnnealingSolution sol = sim.solve();
+
+        long finish = System.nanoTime();
+        displayResult(start, sol.getCost((AdjacencyMatrix) graph), finish);
     }
 }
